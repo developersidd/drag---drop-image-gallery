@@ -1,12 +1,12 @@
-import ImageGallery from "./components/ImageGallery"
+import ImageGallery from "./components/ImageGallery";
 
 function App() {
 
   return (
-    <div>
+    <div className="md:container px-5 lg:px-10 py-10 mx-auto">
       <ImageGallery />
     </div>
   )
 }
 
-export default App
+export default App;
