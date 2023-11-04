@@ -9,11 +9,14 @@ import {
   useSensors
 } from "@dnd-kit/core";
 import {
-  arrayMove
+  SortableContext,
+  arrayMove,
+  rectSortingStrategy
 } from "@dnd-kit/sortable";
 import { useState } from "react";
 import { images } from "../assets/data/Images";
 //import "./App.css";
+import { DragableItem } from "./DragableItem";
 
 const initialItems = images;
 
@@ -48,6 +51,14 @@ function App() {
       onDragEnd={handleDragEnd}
       onDragStart={handleDragStart}
     >
+
+      <SortableContext items={items} strategy={rectSortingStrategy}>
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xl:grid-rows-3  gap-5  p-5">
+          {items.map((item, ind) => (
+            <DragableItem data={{ activeId, ind, ...item }} key={item.id} />
+          ))}
+        </div>
+      </SortableContext>
 
     </DndContext>
   );
