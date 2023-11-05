@@ -11,7 +11,7 @@ const DraggableImage = memo((props: DraggableImageProps) => {
     const { data: { id, ind, image, isDragging, } } = props
     const { selectedImages } = useDndContext();
 
-    const { attributes, listeners, setNodeRef, transform, transition, active, } =
+    const { attributes, listeners, setNodeRef, transform, transition, active } =
         useSortable({
             id: id, transition: {
                 duration: 1000,
@@ -35,13 +35,13 @@ const DraggableImage = memo((props: DraggableImageProps) => {
                 ref={setNodeRef}
                 {...attributes}
                 {...listeners}
-                className={` ${active ? "rounded-xl border border-gray-300" : ""} h-full`}
+                className={` ${active ? "rounded-xl border border-gray-300 cursor-grab" : ""} h-full`}
             >
                 <img
                     className="rounded-xl w-full h-full object-cover"
                     src={image}
                 />
-                <div className={`${isSelected ? "hidden" : ""} transition-all invisible opacity-0 z-30  ${isDragging ? "" : "group-hover/draggableImage:opacity-100 group-hover/draggableImage:visible"} cursor-pointer absolute rounded-xl top-0 left-0 w-full h-full bg-black/40`} />
+                <div className={`${isSelected ? "hidden" : ""} transition-all invisible opacity-0 z-30  ${isDragging ? "" : "group-hover/draggableImage:opacity-100 group-hover/draggableImage:visible"} cursor-grab absolute rounded-xl top-0 left-0 w-full h-full bg-black/40`} />
             </div>
             {
                 isDragging ? null : <DraggableImageCheckbox id={id} />
