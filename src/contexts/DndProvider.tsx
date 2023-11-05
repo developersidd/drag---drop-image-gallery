@@ -1,39 +1,52 @@
 import React, { createContext, useState } from 'react';
-import { Image, images } from '../assets/data/Images';
+import { Image, images as InitialImages } from '../assets/data/Images';
 type DndProviderProps = {
     children: React.ReactNode
 }
 
 export type DndContextProps = {
-    items: Image[];
-    handleSetItems: (images: Image[]) => void
-    selectedItems: string[],
-    addSelectedItem: (id: string) => void
-    removeSelectedItem: (id: string) => void
+    images: Image[];
+    handleSetImages: (images: Image[]) => void
+    selectedImages: string[]
+    addSelectedImage: (id: string) => void
+    removeSelectedImage: (id: string) => void;
+    deleteImages: () => void,
+    handleImageUnSelection: () => void,
 }
 
 export const DndContext = createContext({} as DndContextProps);
 
 const DndProvider = ({ children }: DndProviderProps) => {
-    const [items, setItems] = useState(images);
-    const [selectedItems, setSelectedItems] = useState<string[]>([]);
+    const [images, setImages] = useState(InitialImages);
+    const [selectedImages, setSelectedImages] = useState<string[]>([]);
 
-    const handleSetItems = (items: Image[]) => {
-        setItems(items)
+    // update sortable images
+    const handleSetImages = (images: Image[]) => {
+        setImages(images)
     }
-
-    const addSelectedItem = (id: string) => {
-        setSelectedItems((ids) => ([...ids, id]))
+    //  unselect user selected image
+    const handleImageUnSelection = () => {
+        setSelectedImages([])
     }
-
-    const removeSelectedItem = (selectId: string) => {
-        setSelectedItems((ids) => ids.filter(id => id !== selectId))
+    // store user selected image
+    const addSelectedImage = (id: string) => {
+        setSelectedImages((ids) => ([...ids, id]))
     }
-
-
+    // remove from selected images
+    const removeSelectedImage = (selectId: string) => {
+        setSelectedImages((ids) => ids.filter(id => id !== selectId))
+    }
+    // delete selected images
+    const deleteImages = () => {
+        if ((selectedImages.length > (images.length) - 3) || (images.length === 3)) {
+            return alert(`Sorry, you have to keep al least 3 images`)
+        }
+        setImages((images) => images.filter(img => selectedImages.indexOf(img.id) === -1));
+        setSelectedImages([]);
+    }
 
     return (
-        <DndContext.Provider value={{ handleSetItems, items, selectedItems, addSelectedItem, removeSelectedItem }}>
+        <DndContext.Provider value={{ deleteImages, handleSetImages, images, selectedImages, addSelectedImage, removeSelectedImage, handleImageUnSelection }}>
             {children}
         </DndContext.Provider>
     )
