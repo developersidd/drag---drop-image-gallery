@@ -39,7 +39,7 @@ const DndProvider = ({ children }: DndProviderProps) => {
     // delete selected images
     const deleteImages = () => {
         if ((selectedImages.length > (images.length) - 3) || (images.length === 3)) {
-            return alert(`Sorry, you have to keep al least 3 images`)
+            return alert(`Sorry, you have to keep at least 3 images`)
         }
         setImages((images) => images.filter(img => selectedImages.indexOf(img.id) === -1));
         setSelectedImages([]);

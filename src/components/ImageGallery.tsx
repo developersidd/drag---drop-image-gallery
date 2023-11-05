@@ -2,6 +2,7 @@ import {
   DndContext,
   DragEndEvent,
   MouseSensor,
+  TouchSensor,
   closestCenter,
   useSensor,
   useSensors
@@ -12,15 +13,14 @@ import {
   rectSortingStrategy
 } from "@dnd-kit/sortable";
 import { useState } from "react";
-//import "./App.css";
-import imagePlaceholder from "../assets/images/image-placeholder.png";
 import useDndContext from "../hooks/useDndContext";
-import { DragableImage } from "./DragableImage";
+import ImagePlaceholder from "../ui/ImagePlaceholder";
+import DraggableImage from "./DraggableImage";
 
 function ImageGallery() {
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const { images, handleSetImages } = useDndContext();
-  const sensors = useSensors(useSensor(MouseSensor));
+  const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
 
   // User starts picking images
   function handleDragStart() {
@@ -51,15 +51,10 @@ function ImageGallery() {
       <SortableContext items={images} strategy={rectSortingStrategy}>
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xl:grid-rows-3 gap-5 p-6 md:p-12">
           {images.map((item, ind) => (
-            <DragableImage data={{ isDragging, ind, ...item }} key={item.id} />
+            <DraggableImage data={{ isDragging, ind, ...item }} key={item.id} />
           ))}
           {/*  image placeholder */}
-          <div className="rounded-xl w-full h-[310px] sm:h-[250px] border-dashed border-2 mx-auto text-center">
-            <div className="flex items-center justify-center h-full flex-col">
-              <img className="w-14 md:w-20" src={imagePlaceholder} alt="image-placeholder" />
-              <p className="text-lg md:text-xl font-bold text-gray-600">Add Images</p>
-            </div>
-          </div>
+          <ImagePlaceholder />
         </div>
       </SortableContext>
 
