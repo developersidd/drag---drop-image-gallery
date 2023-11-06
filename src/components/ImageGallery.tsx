@@ -14,7 +14,7 @@ import {
 } from "@dnd-kit/sortable";
 import { useState } from "react";
 import useDndContext from "../hooks/useDndContext";
-import ImagePlaceholder from "../ui/ImagePlaceholder";
+import ImagePlaceholder from "../ImagePlaceholder";
 import DraggableImage from "./DraggableImage";
 
 function ImageGallery() {
