@@ -17,8 +17,8 @@ const GalleryHeader = () => {
                 selectedImages?.length > 0 ?
                     (
                         <div className='flex items-center justify-between'>
-                            <div className='flex items-end gap-3'>
-                                <input title='Unselect Image' type="checkbox" onChange={handleChange} className='accent-emerald-600 cursor-pointer w-4 h-4 md:w-6 md:h-7' checked={checked} />
+                            <div className='flex items-center gap-3'>
+                                <input title='Unselect Image' type="checkbox" onChange={handleChange} className='accent-emerald-600 cursor-pointer w-5 h-5 md:mt-1 md:w-6 md:h-7' checked={checked} />
                                 <h4 className='text-xl md:text-2xl xl:text-3xl font-medium'> {selectedImages?.length}  {showPlural ? "Files" : "File"} Selected </h4>
                             </div>
                             <button onClick={deleteImages} className='flex items-center gap-1 font-medium px-3  py-2 rounded bg-red-600 hover:bg-red-700 text-white'>

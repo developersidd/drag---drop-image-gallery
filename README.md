@@ -16,7 +16,8 @@
 
 
 ## Features:
-* User can sort images by drag and drop
+* User can set a Feature image & change
+* Sort images by drag and drop
 * Select & Deselect Images
 * Delete multiple Images
 * UnSelect all selected Images

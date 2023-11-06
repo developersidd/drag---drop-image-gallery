@@ -2,8 +2,7 @@ import {
   DndContext,
   DragEndEvent,
   MouseSensor,
-  TouchSensor,
-  closestCenter,
+  rectIntersection,
   useSensor,
   useSensors
 } from "@dnd-kit/core";
@@ -14,13 +13,14 @@ import {
 } from "@dnd-kit/sortable";
 import { useState } from "react";
 import useDndContext from "../hooks/useDndContext";
-import ImagePlaceholder from "../ImagePlaceholder";
 import DraggableImage from "./DraggableImage";
+import FeatureImage from "./FeatureItem";
+import ImagePlaceholder from "./ImagePlaceholder";
 
 function ImageGallery() {
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const { images, handleSetImages } = useDndContext();
-  const sensors = useSensors(useSensor(MouseSensor), useSensor(TouchSensor));
+  const sensors = useSensors(useSensor(MouseSensor));
 
   // User starts picking images
   function handleDragStart() {
@@ -43,14 +43,15 @@ function ImageGallery() {
   return (
     <DndContext
       sensors={sensors}
-      collisionDetection={closestCenter}
+      collisionDetection={rectIntersection}
       onDragEnd={handleDragEnd}
       onDragStart={handleDragStart}
     >
 
-      <SortableContext items={images} strategy={rectSortingStrategy}>
+      <SortableContext items={images} strategy={rectSortingStrategy} >
         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xl:grid-rows-3 gap-5 p-6 md:p-12">
-          {images.map((item, ind) => (
+          <FeatureImage data={{ isDragging, id: images[0].id, image: images[0].image }} key={images[0].id} />
+          {images.slice(1).map((item, ind) => (
             <DraggableImage data={{ isDragging, ind, ...item }} key={item.id} />
           ))}
           {/*  image placeholder */}
