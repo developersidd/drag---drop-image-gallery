@@ -28,7 +28,7 @@ const DraggableImage = memo((props: DraggableImageProps) => {
 
     return (
         <div
-            className={`${isSelected ? "opacity-60" : ""} relative rounded-xl border-2 border-gray-300  w-full ${ind === 0 ? "sm:col-span-2 sm:row-span-2" : ""}  group/draggableImage`}>
+            className={` relative rounded-xl border-2 border-gray-300  w-full ${ind === 0 ? "sm:col-span-2 sm:row-span-2" : ""}  group/draggableImage`}>
 
             <div
                 style={{ touchAction: "none", ...style }}
@@ -41,7 +41,7 @@ const DraggableImage = memo((props: DraggableImageProps) => {
                     className="rounded-xl w-full h-full object-cover"
                     src={image}
                 />
-                <div className={`${isSelected ? "hidden" : ""} transition-all invisible opacity-0 z-30  ${isDragging ? "" : "group-hover/draggableImage:opacity-100 group-hover/draggableImage:visible"} cursor-grab absolute rounded-xl top-0 left-0 w-full h-full bg-black/40`} />
+                <div className={`${isSelected && !isDragging ? "opacity-60 bg-white" : "invisible opacity-0 bg-black/40"} transition-all  z-30  ${(isDragging || isSelected) ? "" : "group-hover/draggableImage:opacity-100 group-hover/draggableImage:visible"} cursor-grab absolute rounded-xl top-0 left-0 w-full h-full `} />
             </div>
             {
                 isDragging ? null : <DraggableImageCheckbox id={id} />

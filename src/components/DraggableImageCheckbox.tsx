@@ -23,7 +23,7 @@ const DraggableImageCheckbox = memo(({ id }: { id: string }) => {
     }
 
     return (
-        <input checked={checked} onChange={handleCheckBox} type="checkbox" className={`${isSelected ? "opacity-100" : ""}  transition-opacity group-hover/draggableImage:opacity-100 opacity-0 z-50 cursor-pointer w-7 h-5 md:w-10 md:h-7 absolute top-5 left-5`} name="" id="" />
+        <input checked={checked} onChange={handleCheckBox} type="checkbox" className={`${isSelected ? "opacity-100" : ""} accent-cyan-600 transition-opacity group-hover/draggableImage:opacity-100 opacity-0 z-50 cursor-pointer w-7 h-5 md:w-10 md:h-7 absolute top-5 left-5`} name="" id="" />
     )
 });
 
